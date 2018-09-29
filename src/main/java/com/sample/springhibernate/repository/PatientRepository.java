@@ -11,4 +11,5 @@ public interface PatientRepository
     void updatePatient(Patient patient);
     void deletePatient(Patient patient);
     List<Patient> findAllPatients();
+    List<Patient> findPatientByName(String name);
 }

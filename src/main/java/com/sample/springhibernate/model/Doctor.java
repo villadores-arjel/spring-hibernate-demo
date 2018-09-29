@@ -11,18 +11,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PATIENTS")
-public class Patient {
+@Table(name="DOCTORS")
+public class Doctor 
+{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
- 
+	
 	@Column(name="FIRST_NAME", nullable = false)
 	private String firstName;
 	
@@ -32,40 +33,9 @@ public class Patient {
 	@Column(name="MIDDLE_NAME")
 	private String midName;
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy="patients",  fetch = FetchType.LAZY)
-	private Collection<Doctor> doctors = new ArrayList<Doctor>();
-	
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name="P_RECORD_ID")
-//	private PatientRecord record;
-//	
-//	public PatientRecord getRecord() {
-//		return record;
-//	}
-//
-//	public void setRecord(PatientRecord record) {
-//		this.record = record;
-//	}
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="patient",  fetch = FetchType.LAZY)
-//	@JoinTable(name="PATIENT_RECORD", joinColumns=@JoinColumn(name="PATIENT_ID"), inverseJoinColumns=@JoinColumn(name="RECORD_ID"))
-	private Collection<PatientRecord> records = new ArrayList<PatientRecord>();
-
-	public Collection<PatientRecord> getRecords() {
-		return records;
-	}
-
-	public void setRecords(Collection<PatientRecord> records) {
-		this.records = records;
-	}
-	
-	public Collection<Doctor> getDoctors() {
-		return doctors;
-	}
-
-	public void setDoctors(Collection<Doctor> doctors) {
-		this.doctors = doctors;
-	}
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name="PATIENT_ATTENDING_DOCTOR", joinColumns=@JoinColumn(name="DOCTOR_ID"), inverseJoinColumns=@JoinColumn(name="PATIENT_ID"))
+	private Collection<Patient> patients = new ArrayList<Patient>();
 
 	public int getId() {
 		return id;
@@ -97,6 +67,14 @@ public class Patient {
 
 	public void setMidName(String midName) {
 		this.midName = midName;
+	}
+
+	public Collection<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(Collection<Patient> patients) {
+		this.patients = patients;
 	}
 
 }

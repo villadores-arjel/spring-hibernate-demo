@@ -2,6 +2,7 @@ package com.sample.springhibernate.service;
 
 import java.util.List;
 
+import com.sample.springhibernate.model.Doctor;
 import com.sample.springhibernate.model.Patient;
 
 public interface PatientService 
@@ -11,4 +12,6 @@ public interface PatientService
     void updatePatient(Patient patient);
     void deletePatient(Patient patient);
     List<Patient> findAllPatients();
+    List<Patient> findPatientByName(String name);
+    List<Doctor> findDoctorByPatient(int id);
 }
