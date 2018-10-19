@@ -59,15 +59,16 @@ public class PatientServiceImpl implements PatientService
 	@Override
 	public List<Doctor> findDoctorByPatient(int id) 
 	{
-//		List<Patient> patients = findPatientByName(name);
 		Patient patient = findPatient(id);
 		List<Doctor> doctors = new ArrayList<Doctor>();
 		doctors.addAll(patient.getDoctors());
-//		for(Patient patient:patients)
-//		{
-//			doctors.addAll(patient.getDoctors());
-//		}
+
 		return doctors;
+	}
+
+	@Override
+	public List<Object[]> findAllPatiensAndDoctors() {
+		return patientRepository.findAllPatiensAndDoctors();
 	}
 
 }

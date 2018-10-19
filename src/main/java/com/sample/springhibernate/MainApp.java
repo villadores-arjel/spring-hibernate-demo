@@ -56,6 +56,15 @@ public class MainApp
 		samplePatient.getDoctors().add(doctor2);
 		
 		patientService.createPatient(samplePatient);
+		
+		Patient samplePatient2 = new Patient();
+		samplePatient2.setFirstName("Jelo");
+		samplePatient2.setMidName("V");
+		samplePatient2.setLastName("Villadores");
+		samplePatient2.getDoctors().add(doctor1);
+		doctor1.getPatients().add(samplePatient2);
+		
+		patientService.createPatient(samplePatient2);
 //		
 //		Patient getPatient = patientService.findPatient(2);
 //		System.out.println(getPatient.getFirstName());
@@ -86,11 +95,20 @@ public class MainApp
 			}
 		}
 		
+		for(Object[] patientDoctor:patientService.findAllPatiensAndDoctors())
+		{
+			Patient patient = (Patient) patientDoctor[0];
+			Doctor doctor = (Doctor) patientDoctor[1];
+//			System.out.println(patient.getFirstName());
+			System.out.println(patient.getFirstName()+" | "+doctor.getFirstName()+" "+doctor.getLastName());
+		}
+		
 //		List<Doctor> doctors = patientService.findDoctorByPatient("Villadores");
 //		for(Doctor doctor:doctors)
 //		{
 //			System.out.println(doctor.getFirstName()+" "+doctor.getLastName());
 //		}
+		
 
 	}
 
